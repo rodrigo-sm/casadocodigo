@@ -9,7 +9,7 @@
 
 	<section style="margin:20px;">
 	
-		<c:if test="${usuarioCadastrado != ''}">
+		<c:if test="${usuarioCadastrado == true}">
 			<h1><fmt:message key="usuarios.cadastrado.sucesso"/></h1>
 		</c:if>
 	
@@ -21,11 +21,16 @@
 			<tr>
 				<th><fmt:message key="padrao.nome"/></th>
 				<th><fmt:message key="padrao.email"/></th>
+				<th>Roles</th>
+				<th></th>
 			</tr>
 			<c:forEach items="${usuarios}" var="usuario">
+				
 				<tr>
 					<td>${usuario.nome}</td>
 					<td>${usuario.email}</td>
+					<td>${usuario.roles}</td>
+					<td><a href="${s:mvcUrl('UC#alterar').arg(0, usuario.email).build()}"><fmt:message key="padrao.altera"/></a></td>
 				</tr>
 			</c:forEach>
 		</table>

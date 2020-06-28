@@ -7,6 +7,7 @@ import org.springframework.validation.Validator;
 
 import br.com.casadocodigo.loja.dao.UsuarioDAO;
 import br.com.casadocodigo.loja.models.FormUsuario;
+import br.com.casadocodigo.loja.models.Usuario;
 
 public class UsuarioValidation implements Validator{
 	
@@ -21,7 +22,7 @@ public class UsuarioValidation implements Validator{
 	
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return FormUsuario.class.isAssignableFrom(clazz);
+		return FormUsuario.class.isAssignableFrom(clazz) || Usuario.class.isAssignableFrom(clazz);
 	}
 	
 	@Override

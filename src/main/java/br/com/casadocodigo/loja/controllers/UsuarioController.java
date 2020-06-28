@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.casadocodigo.loja.dao.RoleDAO;
 import br.com.casadocodigo.loja.dao.UsuarioDAO;
 import br.com.casadocodigo.loja.models.FormUsuario;
+import br.com.casadocodigo.loja.models.Usuario;
 import br.com.casadocodigo.loja.validation.UsuarioValidation;
 
 @Transactional
@@ -24,6 +26,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private UsuarioDAO usuarioDAO;
+	
+	@Autowired
+	private RoleDAO roleDAO;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -55,6 +60,21 @@ public class UsuarioController {
 		modelAndView.addObject("usuarios", usuarioDAO.listar());
 		
 		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/alterar", method = RequestMethod.GET)
+	public ModelAndView alterar(String email) {
+		ModelAndView modelAndView = new ModelAndView("usuarios/alterar");
+		modelAndView.addObject("roles", roleDAO.getRoles());
+		modelAndView.addObject("usuario", usuarioDAO.find(email));
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/alterar", method = RequestMethod.POST)
+	public String atualizar(Usuario usuario, RedirectAttributes redirectAttributes) {
+		usuarioDAO.alterar(usuario);
+		
+		return "redirect:/usuarios";
 	}
 	
 }
