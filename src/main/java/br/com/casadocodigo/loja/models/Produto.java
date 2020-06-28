@@ -31,7 +31,7 @@ public class Produto implements Serializable{
 	@ElementCollection
 	private List<Preco> precos = new ArrayList<>();
 	
-	@DateTimeFormat
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Calendar dataLancamento;
 	
 	public String getTitulo() {
